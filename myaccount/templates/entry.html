@@ -1,0 +1,116 @@
+{% load static %}
+{% include 'header.html' %}
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  {% include 'sidebar.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Journal Entry</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Journal Entry</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Particulars</th>
+                    <th>Credit</th>
+                    <th>Debit</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for transaction in transactions %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ transaction.date }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td class="project-state">
+                      {% if transaction.transaction_type == 0 %}
+                        <span class="badge badge-danger">{{ transaction.amount }}</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if transaction.transaction_type == 1 %}
+                        <span class="badge badge-success">{{ transaction.amount }}</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                    <td class="text-danger"><strong>{{ total_debit }}</strong></td>
+                    <td class="text-success"><strong>{{ total_credit }}</strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="4" class="text-right"><strong>Current Balance:</strong></td>
+                    {# Display the current_balance variable #}
+                    <td><strong>{{ current_balance }}</strong></td>
+                  </tr>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% include 'footer.html' %}
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+{% include 'scripts.html' %}
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+</body>
+</html>

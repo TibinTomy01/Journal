@@ -1,0 +1,120 @@
+{% load static %}
+{% include 'header.html' %}
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  {% include 'sidebar.html' %}
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Amount C/D</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Amount C/D</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <form method="POST" action="{% url 'account_CD' %}">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="row" style="margin-left: 30px;">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">Date </label>
+                      <div class="col-sm-10">
+                        <input type="date" class="form-control"  name="date">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">Debit/ Credit</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="transaction_type" value="{{ transaction_type }}">
+                          <option value="0" >Debit</option>
+                          <option value="1" >Credit</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">Particulars</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Enter The Descriptions" name="description" autocomplete="off" >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-4 col-form-label">Amount</label>
+                      <div class="col-sm-10">
+                        <input type="number" class="form-control" placeholder="Amount" name="amount">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="margin-left: 30px; margin-bottom: 20px;">
+                  <div class="col-md-12">
+                    <button type="reset" class="btn btn-outline-danger float-left">Clear</button>
+                    <button type="Submit" class="btn btn-outline-dark"  style="margin-left: 78%;">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% include 'footer.html' %}
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+{% include 'scripts.html' %}
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+</body>
+</html>
